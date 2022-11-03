@@ -54,7 +54,7 @@ const WalletConnectProvider = ({ children }: Props) => {
 
   useEffect(() => {
     if (library) {
-      const network = [137, 80001]
+      const network = [1, 3, 4, 5, 42, 137, 80001]
 
       if (!network.includes(chainId)) {
         setNoti({
