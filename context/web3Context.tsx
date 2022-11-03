@@ -75,6 +75,8 @@ const WalletConnectProvider = ({ children }: Props) => {
   function getNetWorkName(chainidNum: any) {
     const network: any = {
       1: "Etherum Mainnet ",
+      3: "Ropsten Test Network",
+      4: "Rinkeby Test Network",
       137: "Polygon Network",
       80001: "Mumbai Testnet",
     }
