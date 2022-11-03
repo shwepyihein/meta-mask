@@ -48,19 +48,28 @@ const WalletConnectProvider = ({ children }: Props) => {
 
   const handleLogout = () => {
     deactivate()
+    localStorage.removeItem("wallet")
   }
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    const wallet = localStorage.getItem("wallet")
+    if (wallet) {
+      connectLoginAndWallet()
+    }
+  }, [])
 
   useEffect(() => {
     if (library) {
-      const network = [1, 3, 4, 5, 42, 137, 80001]
+      const network = [
+        1, 3, 4, 5, 42, 137, 80001, 43114, 43113, 1088, 588, 1313161554,
+        1313161555, 56, 97, 250, 4002,
+      ]
 
       if (!network.includes(chainId)) {
         setNoti({
           type: "warning",
           show: true,
-          text: "Please switch to Polygon or Mumbai Testnet!",
+          text: "Please switch to other  Testnet!",
         })
         setShowBalance(false)
       } else {
@@ -77,8 +86,20 @@ const WalletConnectProvider = ({ children }: Props) => {
       1: "Etherum Mainnet ",
       3: "Ropsten Test Network",
       4: "Rinkeby Test Network",
+      5: "Goerli Test Network",
+      42: "Kovan Test Network",
       137: "Polygon Network",
       80001: "Mumbai Testnet",
+      43114: "Avalanche C-Chain Main Network",
+      43113: "Fuji Test Network",
+      1088: "Metis Andromeda Main Network",
+      588: "Metis Stardust Test Network",
+      1313161554: "Aurora Main Network",
+      1313161555: "Aurora Test Network",
+      56: "Binance Smart Chain Main Network",
+      97: "Binance Smart Chain Test Network",
+      250: "	Fantom Opera Main Network",
+      4002: "Fantom Test Network",
     }
     return network[chainidNum]
   }
@@ -92,6 +113,7 @@ const WalletConnectProvider = ({ children }: Props) => {
   const connectLoginAndWallet = async () => {
     try {
       await activate(connectors.injected, onError)
+      localStorage.setItem("wallet", true)
     } catch (error) {}
   }
   console.log(active)
